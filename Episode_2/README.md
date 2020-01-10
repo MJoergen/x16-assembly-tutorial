@@ -4,7 +4,7 @@ This is the second episode of the tutorial explaining how to write a TENNIS
 game in assembly language for the Commander X16.
 
 In this episode we will add the player to the game. This includes defining a
-sprite, getting movements from the joystick/keybaord, and moving the sprite
+sprite, getting movements from the joystick/keyboard, and moving the sprite
 around.
 
 ## The main loop (in tennis.s)
