@@ -12,7 +12,8 @@ all:
 	ca65 --cpu 65c02 ball.s
 	ca65 --cpu 65c02 math.s
 	ca65 --cpu 65c02 collision.s
-	cl65 -C ld.cfg $(OPTIONS_C) tennis.o sprite.o player.o bot.o score.o ball.o collision.o math.o
+	ca65 --cpu 65c02 music.s
+	cl65 -C ld.cfg $(OPTIONS_C) tennis.o sprite.o player.o bot.o score.o ball.o collision.o math.o music.o
 
 run:
 	$(X16EMU) -rom $(ROM) -prg tennis.prg -run $(OPTIONS_R)

@@ -18,6 +18,8 @@
 .import ball_reset               ; From ball.s
 .import collision_bottom         ; From collision.s
 .import collision_compare_pos_x  ; From collision.s
+.import music_init               ; From music.s
+.import music_update             ; From music.s
 
 ; This section contains variables that are uninitialized at start.
 .bss
@@ -47,9 +49,11 @@ tennis_timer : .res 1
          jsr bot_init            ; In bot.s
          jsr score_init          ; In bot.s
          jsr ball_init           ; In ball.s
+         jsr music_init          ; In music.s
 
          ; Main loop starts here
 @main_loop:
+         jsr music_update
          jsr player_update
          jsr bot_update
          jsr ball_update
