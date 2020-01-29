@@ -88,7 +88,7 @@ music_update:
          jsr kernal_clock_get_date_time
          lda $08
          cmp music_time
-         bne :+
+         beq :+
          rts
 
 :        ; Send "Key off" event to the chip.
@@ -100,7 +100,7 @@ music_update:
 :        lda (music_pointer)
          beq @duration
          cmp #$ff
-         bne :+
+         bne @note
          jsr music_pointer_reset
          bra :-
 
@@ -118,8 +118,8 @@ music_update:
          beq :+
          jsr music_chord
 :
-         jsr music_inc_pointer
-         rts
+
+; Fall through to music_inc_pointer
 
 music_inc_pointer:
          inc music_pointer
@@ -142,6 +142,14 @@ music_duration:
          asl
          asl
          adc music_time                ; Carry is always clear here.
+
+         ; Calculate mod 60.
+:        cmp #60
+         bcc @store
+         sbc #60                       ; Carry is always set here.
+         bra :-
+
+@store:
          sta music_time
          rts
 
@@ -149,6 +157,7 @@ music_duration:
 music_chord:
 
          ; First send "Key Off" event for the chord.
+         pha
          ldx #YM2151_REG_SM
          lda #YM2151_KEYOFF+1
          jsr music_write
@@ -158,6 +167,7 @@ music_chord:
          ldx #YM2151_REG_SM
          lda #YM2151_KEYOFF+3
          jsr music_write
+         pla
 
          ; Set the notes of the chord
          cmp #$41
