@@ -21,7 +21,7 @@ music_time    : .res 1   ; Jiffie counter.
 music_pointer : .res 2
 
 ; This controls the tempo of the music. Number of jiffies per eighth of a bar.
-MUSIC_TIMER_STEP = 4
+MUSIC_TIMER_STEP = 8
 
 ; Number of channels used
 MUSIC_CHANNELS = 5
@@ -200,7 +200,7 @@ val_keyon:
 
 music_total_level:
 .byt $00; Channel 0
-.byt $08; Channel 1
+.byt $02; Channel 1
 .byt $08; Channel 2
 .byt $08; Channel 3
 .byt $08; Channel 4
@@ -240,69 +240,66 @@ music_connection:
 ; $00 means silence.
 ; $FF means continue previous note.
 music_data:
-.byt $51, $FF, $00, $00, $00
+.byt $FF, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
 
-.byt $4A, $FF, $41, $45, $4A
+.byt $FF, $31, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $31, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
+.byt $FF, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $55, $FF, $41, $45, $4A
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
 
-.byt $54, $FF, $3E, $44, $48
+.byt $FF, $31, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $4E, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $31, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $4E, $FF, $FF, $FF, $FF
+.byt $FF, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
 
-.byt $55, $FF, $41, $45, $4A
+.byt $FF, $31, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
+.byt $FF, $31, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
@@ -311,209 +308,144 @@ music_data:
 .byt $51, $FF, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
 
-.byt $4A, $FF, $41, $45, $4A
+music_loop:
+.byt $4A, $31, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $55, $FF, $41, $45, $4A
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $5A, $FF, $3E, $44, $48
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $58, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $55, $FF, $41, $45, $4A
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $5A, $FF, $41, $45, $4A
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $5A, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $58, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $58, $FF, $3E, $44, $48
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $58, $FF, $3E, $44, $48
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $58, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $55, $FF, $41, $45, $4A
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $51, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $5A, $FF, $41, $45, $4A
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $5A, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $58, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $58, $FF, $3E, $44, $48
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
-.byt $58, $FF, $3E, $44, $48
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $58, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $58, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $55, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $54, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-
 .byt $51, $FF, $41, $45, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
+.byt $54, $FF, $FF, $FF, $FF
+.byt $55, $31, $FF, $FF, $FF
+.byt $55, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $51, $FF, $FF, $FF, $FF
+.byt $51, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $55, $FF, $FF, $FF, $FF
+
+.byt $54, $2E, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $4E, $FF, $3E, $44, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $4E, $2A, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $54, $FF, $3E, $44, $4A
 .byt $FF, $FF, $FF, $FF, $FF
+.byt $55, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $51, $FF, $FF, $FF, $FF
+
+.byt $4A, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
+.byt $54, $FF, $FF, $FF, $FF
+.byt $55, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $51, $FF, $FF, $FF, $FF
+.byt $51, $2A, $FF, $FF, $FF
+.byt $51, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $55, $FF, $FF, $FF, $FF
+
+.byt $5A, $2E, $FF, $FF, $FF
+.byt $5A, $FF, $FF, $FF, $FF
+.byt $5A, $FF, $3E, $44, $4A
+.byt $58, $FF, $FF, $FF, $FF
+.byt $55, $2A, $FF, $FF, $FF
+.byt $55, $FF, $FF, $FF, $FF
+.byt $54, $FF, $3E, $44, $4A
+.byt $54, $FF, $FF, $FF, $FF
+.byt $55, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $55, $FF, $FF, $FF, $FF
+
+.byt $5A, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $5A, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $58, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $55, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $54, $2E, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $4E, $FF, $3E, $44, $4A
+.byt $4E, $FF, $FF, $FF, $FF
+.byt $4E, $2A, $FF, $FF, $FF
+.byt $4E, $FF, $FF, $FF, $FF
+.byt $4E, $FF, $3E, $44, $4A
+.byt $54, $FF, $FF, $FF, $FF
+
+.byt $58, $2E, $FF, $FF, $FF
+.byt $58, $FF, $FF, $FF, $FF
+.byt $58, $FF, $3E, $44, $4A
+.byt $58, $FF, $FF, $FF, $FF
+.byt $55, $2A, $FF, $FF, $FF
+.byt $55, $FF, $FF, $FF, $FF
+.byt $54, $FF, $3E, $44, $4A
+.byt $54, $FF, $FF, $FF, $FF
+.byt $55, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $41, $45, $4A
+.byt $51, $FF, $FF, $FF, $FF
+.byt $51, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $FF, $FF, $41, $45, $4A
+.byt $55, $FF, $FF, $FF, $FF
+
+.byt $5A, $31, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $5A, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $58, $2A, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $55, $FF, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $54, $2E, $FF, $FF, $FF
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $4E, $FF, $3E, $44, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $4E, $2A, $FF, $FF, $FF
+.byt $54, $FF, $FF, $FF, $FF
+.byt $54, $FF, $3E, $44, $4A
+.byt $54, $FF, $FF, $FF, $FF
+
+.byt $58, $2E, $FF, $FF, $FF
+.byt $58, $FF, $FF, $FF, $FF
+.byt $58, $FF, $3E, $44, $4A
+.byt $58, $FF, $FF, $FF, $FF
+.byt $55, $2A, $FF, $FF, $FF
+.byt $55, $FF, $FF, $FF, $FF
+.byt $54, $FF, $3E, $44, $4A
+.byt $54, $FF, $FF, $FF, $FF
+.byt $55, $31, $41, $45, $4A
+.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $FF, $FF, $FF
+.byt $51, $FF, $FF, $FF, $FF
 .byt $51, $FF, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
 .byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
-.byt $FF, $FF, $FF, $FF, $FF
+.byt $51, $FF, $FF, $FF, $FF
 
 .byt $FE                               ; Repeat
-.word music_data
+.word music_loop
 
 
