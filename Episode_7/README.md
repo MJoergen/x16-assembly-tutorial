@@ -14,7 +14,7 @@ chip supports up to eight simultaneous channels.
 For those new to music the first thing to consider is how to arrange the music,
 i.e.  which sound channels should play which notes, and when.
 
-In this project we'll be using four sound channels: One for the melody and
+In this project we'll be using five sound channels: One for the melody, one for the base, and
 three for the accompanying chords. The musical score will be arranged in lines,
 where each line corresponds to one eighth of a bar. Each line will consist
 of four bytes, one for each channel. A channel may either:
