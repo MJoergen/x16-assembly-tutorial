@@ -2,23 +2,22 @@
 ;
 ; LICENSE: This program is public domain, and you may do anything and
 ; everything with it.
+;
+; Note, the musical score is of the tune "Ievan Polkka".
+; The arrangement is created by Harley Volkova, see this video:
+; https://www.youtube.com/watch?v=Tct2kV1gjZg
 
 ; External API
 
 .export music_init
 .export music_update
 
-.include "tennis.inc"
+.import ym2151_channel_init
+.import ym2151_keyon
+.import ym2151_keyoff
+.import ym2151_keycode
 
-; This section contains variables that are uninitialized at start.
-.bss
-; Time for next event.
-music_time    : .res 1   ; Jiffie counter.
-
-; This section contains zero-page variables that are uninitialized at start.
-.segment "ZP" : zeropage
-; Current position in music score.
-music_pointer : .res 2
+.include "tennis.inc"                  ; kernal_clock_get_date_time
 
 ; This controls the tempo of the music. Number of jiffies per eighth of a bar.
 MUSIC_TIMER_STEP = 8
@@ -26,53 +25,48 @@ MUSIC_TIMER_STEP = 8
 ; Number of channels used
 MUSIC_CHANNELS = 5
 
+
+;
+; This section contains variables that are uninitialized at start.
+;
+.bss
+music_time    : .res 1                 ; Jiffie counter.
+
+
+;
+; This section contains zero-page variables that are uninitialized at start.
+;
+.segment "ZP" : zeropage
+music_pointer : .res 2                 ; Current position in music score.
+
+
 .code
 
 music_init:
+         lda #>music_chan0
+         ldx #<music_chan0
          ldy #$00
-         ldx #YM2151_REG_TL
-:        lda music_total_level,y
-         jsr music_write
-         iny
-         inx
-         cpy #MUSIC_CHANNELS
-         bne :-
+         jsr ym2151_channel_init
 
-         ldy #$00
-         ldx #YM2151_REG_AR
-:        lda music_attack_rate,y
-         jsr music_write
-         iny
-         inx
-         cpy #MUSIC_CHANNELS
-         bne :-
+         lda #>music_chan1
+         ldx #<music_chan1
+         ldy #$01
+         jsr ym2151_channel_init
 
-         ldy #$00
-         ldx #YM2151_REG_D1R
-:        lda music_decay_rate,y
-         jsr music_write
-         iny
-         inx
-         cpy #MUSIC_CHANNELS
-         bne :-
+         lda #>music_chan2
+         ldx #<music_chan2
+         ldy #$02
+         jsr ym2151_channel_init
 
-         ldy #$00
-         ldx #YM2151_REG_RR
-:        lda music_release_rate,y
-         jsr music_write
-         iny
-         inx
-         cpy #MUSIC_CHANNELS
-         bne :-
+         lda #>music_chan3
+         ldx #<music_chan3
+         ldy #$03
+         jsr ym2151_channel_init
 
-         ldy #$00
-         ldx #YM2151_REG_CON
-:        lda music_connection,y
-         jsr music_write
-         iny
-         inx
-         cpy #MUSIC_CHANNELS
-         bne :-
+         lda #>music_chan4
+         ldx #<music_chan4
+         ldy #$04
+         jsr ym2151_channel_init
 
          ; Initialize current time.
          jsr kernal_clock_get_date_time
@@ -150,95 +144,70 @@ music_update:
 ; If A = 0, then don't play a note.
 music_note:
          pha                           ; Store the note for later.
-         ; Send "Key off" event to the chip.
-         lda val_keyoff,y              ; A short-hand way of calculating A = YM2151_KEYOFF + Y.
-         ldx #YM2151_REG_SM
-         jsr music_write
+         jsr ym2151_keyoff             ; Send "Key off" event to the chip.
          pla                           ; Retrieve the note.
          bne :+                        ; Should this channel be silent now?
          rts                           ; If so, just return.
 :
-         ; Set Key Code
-         ldx reg_kc,y                  ; A short-hand way of calculating X = YM2151_REG_KC + Y.
-         jsr music_write
-
-         ; Send "Key on" event to the chip.
-         lda val_keyon,y               ; A short-hand way of calculating A = YM2151_KEYON + Y.
-         ldx #YM2151_REG_SM
-         jsr music_write
+         jsr ym2151_keycode            ; Set Key Code
+         jsr ym2151_keyon              ; Send "Key on" event to the chip.
          rts
-
-; Write to a register in the chip.
-music_write:
-         stx YM2151_ADDR
-         sta YM2151_VAL
-         rts
-
-reg_kc:
-.byt YM2151_REG_KC
-.byt YM2151_REG_KC+1
-.byt YM2151_REG_KC+2
-.byt YM2151_REG_KC+3
-.byt YM2151_REG_KC+4
-
-val_keyoff:
-.byt YM2151_KEYOFF
-.byt YM2151_KEYOFF+1
-.byt YM2151_KEYOFF+2
-.byt YM2151_KEYOFF+3
-.byt YM2151_KEYOFF+4
-
-val_keyon:
-.byt YM2151_KEYON
-.byt YM2151_KEYON+1
-.byt YM2151_KEYON+2
-.byt YM2151_KEYON+3
-.byt YM2151_KEYON+4
 
 
 ; This is the initialization data for the channels of the YM2151 chip.
 
-music_total_level:
-.byt $00; Channel 0
-.byt $02; Channel 1
-.byt $08; Channel 2
-.byt $08; Channel 3
-.byt $08; Channel 4
+music_chan0:                           ; MELODY
+.byt $E7, $00, $00, $00                ; Connect
+.byt $00, $00, $00, $00                ; DT1 and MUL
+.byt $00, $00, $00, $00                ; Total Level
+.byt $1F, $00, $00, $00                ; Attack Rate
+.byt $0B, $00, $00, $00                ; First Decay Rate
+.byt $00, $00, $00, $00                ; Second Decay Rate
+.byt $FF, $00, $00, $00                ; Release Rate
 
-music_attack_rate:
-.byt $1F; Channel 0
-.byt $1F; Channel 1
-.byt $1F; Channel 2
-.byt $1F; Channel 3
-.byt $1F; Channel 4
+music_chan1:                           ; BASE
+.byt $D7, $00, $00, $00                ; Connect
+.byt $00, $00, $00, $00                ; DT1 and MUL
+.byt $02, $00, $00, $00                ; Total Level
+.byt $1F, $00, $00, $00                ; Attack Rate
+.byt $07, $00, $00, $00                ; First Decay Rate
+.byt $00, $00, $00, $00                ; Second Decay Rate
+.byt $FF, $00, $00, $00                ; Release Rate
 
-music_decay_rate:
-.byt $0B; Channel 0
-.byt $07; Channel 1
-.byt $07; Channel 2
-.byt $07; Channel 3
-.byt $07; Channel 4
+music_chan2:                           ; CHORD (FIRST NOTE)
+.byt $D7, $00, $00, $00                ; Connect
+.byt $00, $00, $00, $00                ; DT1 and MUL
+.byt $02, $00, $00, $00                ; Total Level
+.byt $1F, $00, $00, $00                ; Attack Rate
+.byt $07, $00, $00, $00                ; First Decay Rate
+.byt $00, $00, $00, $00                ; Second Decay Rate
+.byt $FF, $00, $00, $00                ; Release Rate
 
-music_release_rate:
-.byt $FF; Channel 0
-.byt $FF; Channel 1
-.byt $FF; Channel 2
-.byt $FF; Channel 3
-.byt $FF; Channel 4
+music_chan3:                           ; CHORD (SECOND NOTE)
+.byt $D7, $00, $00, $00                ; Connect
+.byt $00, $00, $00, $00                ; DT1 and MUL
+.byt $02, $00, $00, $00                ; Total Level
+.byt $1F, $00, $00, $00                ; Attack Rate
+.byt $07, $00, $00, $00                ; First Decay Rate
+.byt $00, $00, $00, $00                ; Second Decay Rate
+.byt $FF, $00, $00, $00                ; Release Rate
 
-music_connection:
-.byt $E7; Channel 0
-.byt $D7; Channel 1
-.byt $D7; Channel 2
-.byt $D7; Channel 3
-.byt $D7; Channel 4
+music_chan4:                           ; CHORD (THIRD NOTE)
+.byt $D7, $00, $00, $00                ; Connect
+.byt $00, $00, $00, $00                ; DT1 and MUL
+.byt $02, $00, $00, $00                ; Total Level
+.byt $1F, $00, $00, $00                ; Attack Rate
+.byt $07, $00, $00, $00                ; First Decay Rate
+.byt $00, $00, $00, $00                ; Second Decay Rate
+.byt $FF, $00, $00, $00                ; Release Rate
 
 
-; This is the musical score of the tune "Ievan Polkka".
-; Four bytes in each line, one for each channel.
-; Each line corresponds to one eighth of a bar.
+
+; Five bytes in each line, one for each channel.
+; Each line corresponds to 1/16 of a bar.
 ; $00 means silence.
 ; $FF means continue previous note.
+; $FE means loop back to address following.
 music_data:
 
 ;
