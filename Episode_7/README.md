@@ -16,8 +16,8 @@ i.e.  which sound channels should play which notes, and when.
 
 In this project we'll be using five sound channels: One for the melody, one for the base, and
 three for the accompanying chords. The musical score will be arranged in lines,
-where each line corresponds to one eighth of a bar. Each line will consist
-of four bytes, one for each channel. A channel may either:
+where each line corresponds to 1/16 of a bar. Each line will consist
+of five bytes, one for each channel. A channel may either:
 * Play a new note
 * Keep the same note as before (i.e. do nothing).
 * Go silent
@@ -28,16 +28,10 @@ This gets translated into commands to the YM2151 chip:
 * Send Key On  => channel starts playing new note.
 
 ## music\_init
-The initialization code must initialize the four sound channels on the YM2151 chip,
+The initialization code must initialize the five sound channels on the YM2151 chip,
 including volume (actually attenuation) of each channel, as well as the timbre.
 As I said, I won't go into any details here, but the initalization consists
 of a number of writes to various registers internal in the YM2151.
-
-These writes could have been arranged in a number of different ways, including
-one large table with (address, value) pairs. The layout I've chosen makes it
-easier (I believe) to make changes to the initialization values, as well as
-providing at least a small amount of documentation for the purpose of each
-write.
 
 The initialization routine must initialize the current timeout, which controls
 when the next note is to be played. This again makes use of the kernal function
@@ -56,5 +50,5 @@ music\_time contains the time for the next musical event, so if the current jiff
 counter does not match, then just return immediately. Using the jiffie counter
 ensures that the music will be played at a regular pace. The tempo can be adjusted
 by the constant MUSIC\_TIMER\_STEP, which is the number of jiffies allocated
-for each eighth of a bar.
+for each 1/16 of a bar.
 
