@@ -19,7 +19,7 @@
 
 .include "tennis.inc"                  ; kernal_clock_get_date_time
 
-; This controls the tempo of the music. Number of jiffies per eighth of a bar.
+; This controls the tempo of the music. Number of jiffies per 1/16 of a bar.
 MUSIC_TIMER_STEP = 8
 
 ; Number of channels used
