@@ -15,11 +15,17 @@ For those new to music the first thing to consider is how to arrange the music,
 i.e.  which sound channels should play which notes, and when.
 
 In this project we'll be using four sound channels: One for the melody and
-three for the accompanying chords. The musical score will consist of a single
-table containing:
-* The note to be played.
-* The duration of the note.
-* The accompanying chord.
+three for the accompanying chords. The musical score will be arranged in lines,
+where each line corresponds to one eighth of a bar. Each line will consist
+of four bytes, one for each channel. A channel may either:
+* Play a new note
+* Keep the same note as before (i.e. do nothing).
+* Go silent
+
+This gets translated into commands to the YM2151 chip:
+* Send Key Off => channel goes silent.
+* Set Key Code => change the note to play.
+* Send Key On  => channel starts playing new note.
 
 ## music\_init
 The initialization code must initialize the four sound channels on the YM2151 chip,
@@ -47,14 +53,8 @@ reading from the pointer. I've subsequently updated the linker script ld.cfg.
 ## music\_update
 The first step is to check if anything at all needs to be done. The variable
 music\_time contains the time for the next musical event, so if the current jiffie
-counter does not match, then just return immediately.
-
-The sequence of events following is to first send a "Key Off" event to the
-chip, then setup the new note (and possibly chord) to play, and finally to send
-a "Key On" event to the chip.
-
-Each of the three bytes in the musical score is processed separately:
-* music\_note
-* music\_duration
-* music\_chord
+counter does not match, then just return immediately. Using the jiffie counter
+ensures that the music will be played at a regular pace. The tempo can be adjusted
+by the constant MUSIC\_TIMER\_STEP, which is the number of jiffies allocated
+for each eighth of a bar.
 
