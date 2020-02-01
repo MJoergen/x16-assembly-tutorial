@@ -42,7 +42,13 @@ music_pointer : .res 2                 ; Current position in music score.
 
 .code
 
+;
+; This function is called once at startup. It sets up the YM2151
+; to make it ready to play music.
+;
+
 music_init:
+         ; Initialize sound channels
          lda #>music_chan0
          ldx #<music_chan0
          ldy #$00
@@ -72,10 +78,7 @@ music_init:
          jsr kernal_clock_get_date_time
          lda $08
          sta music_time
-; Fall through to music_pointer_reset.
 
-
-music_pointer_reset:
          ; Initialize pointer to musical score.
          ldx #<music_data
          lda #>music_data
@@ -84,19 +87,38 @@ music_pointer_reset:
          rts
 
 
+;
+; This function is called repeatedly, once every jiffie.
+;
+
 music_update:
+         ; Check whether it is time to do something.
          jsr kernal_clock_get_date_time
          lda $08
          cmp music_time
          beq :+
          rts
 :
+         ; Process next line of the musical score
          ldy #0
 @next_chan:
          lda (music_pointer),y
          cmp #$fe                      ; Check if loop back to beginning
-         bne :+
+         beq @loop
 
+         cmp #$ff                      ; Check if note is same as previous
+         beq :+                        ; If so, do nothing.
+         jsr music_note                ; Play the new note.
+:
+         iny
+         cpy #MUSIC_CHANNELS
+         bne @next_chan                ; Loop over all channels.
+
+         jsr music_pointer_update      ; Go to next line in music score.
+         jsr music_time_update         ; Set timer for next event.
+         rts
+
+@loop:
          ; Load new value of pointer
          iny
          lda (music_pointer),y
@@ -106,36 +128,27 @@ music_update:
          stx music_pointer
          sta music_pointer+1
          ldy #0
-         bra @next_chan                ; Read again
-:         
-         cmp #$ff                      ; Check if note is same as previous
-         beq @skip_note                ; If so, do nothing.
-         jsr music_note                ; Play the new note.
+         bra @next_chan                ; Read line again
 
-@skip_note:         
-         iny
-         cpy #MUSIC_CHANNELS
-         bne @next_chan                ; Loop over all channels.
 
-         ; Increment pointer
+music_pointer_update:
          lda music_pointer
          clc
          adc #MUSIC_CHANNELS
          sta music_pointer
          bcc :+
          inc music_pointer+1
-: 
+:        rts
 
-         ; Set timer
+
+music_time_update:
          lda music_time
          clc
          adc #MUSIC_TIMER_STEP
-:        cmp #60                       ; Calculate mod 60.
+         cmp #60                       ; Calculate mod 60.
          bcc :+
          sbc #60                       ; Carry is always set here.
-         bra :-
-:
-         sta music_time                ; Carry is always clear here.
+:        sta music_time
          rts
 
 
@@ -146,12 +159,10 @@ music_note:
          pha                           ; Store the note for later.
          jsr ym2151_keyoff             ; Send "Key off" event to the chip.
          pla                           ; Retrieve the note.
-         bne :+                        ; Should this channel be silent now?
-         rts                           ; If so, just return.
-:
+         beq :+                        ; Jump if no key to play.
          jsr ym2151_keycode            ; Set Key Code
          jsr ym2151_keyon              ; Send "Key on" event to the chip.
-         rts
+:        rts
 
 
 ; This is the initialization data for the channels of the YM2151 chip.
