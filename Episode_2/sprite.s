@@ -34,7 +34,7 @@ sprite_init:
          bne :-
 
          ; Enable sprites
-         stz VERA_CTRL        ; Set DCSEL to 0
+         stz VERA_CTRL           ; Set DCSEL to 0
          lda VERA_DC_VIDEO
          ora #$40
          sta VERA_DC_VIDEO

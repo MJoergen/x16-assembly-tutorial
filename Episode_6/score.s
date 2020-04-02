@@ -70,7 +70,7 @@ score_init:
          sta score_player
          sta score_bot
 
-         lda #$11                      ; Set increment to 1, and address to $F5018
+         lda #$11                      ; Set increment to 1, and address to $1FC18
          ldx #$FC
          ldy #$18
          sta VERA_ADDRx_H

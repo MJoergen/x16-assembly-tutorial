@@ -1,5 +1,5 @@
-X16EMU    = ~/git/MJoergen/x16-emulator/x16emu
-ROM       = ~/git/MJoergen/x16-rom/rom.bin
+X16EMU    = ~/git/commanderx16/x16-emulator/x16emu
+ROM       = ~/git/commanderx16/x16-rom/build/x16/rom.bin
 OPTIONS_R = -scale 2 -keymap nordic
 OPTIONS_C = --mapfile tennis.map
 

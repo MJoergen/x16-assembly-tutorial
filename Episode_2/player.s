@@ -80,7 +80,7 @@ player_update:
          sta player_pos_x+1
 
 @update_sprite:
-:        lda #$11                ; Set increment to 1, and address to $F5002
+:        lda #$11                ; Set increment to 1, and address to $1FC02
          ldx #$FC
          ldy #$02
          sta VERA_ADDRx_H
@@ -114,7 +114,7 @@ player_init:
          sta player_pos_y+1
 
          ; Configure player sprite (#0)
-         lda #$11                ; Set increment to 1, and address to $F5000
+         lda #$11                ; Set increment to 1, and address to $1FC00
          ldx #$FC
          ldy #$00
          sta VERA_ADDRx_H

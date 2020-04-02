@@ -35,7 +35,7 @@ tennis_timer : .res 1
 
 
 ;
-; This is the main entry point.
+; This is the main entry point, at address $080D.
 ;
 
          jsr scene_init
@@ -87,7 +87,7 @@ scene_init:
          sta VERA_ADDRx_H
          stx VERA_ADDRx_M
          sty VERA_ADDRx_L
-         ldy #30              ; The numebr of colour cells to fill is 60*128, i.e. $3000
+         ldy #30              ; The number of colour cells to fill is 60*128, i.e. $3000
          ldx #0
          lda #$66             ; Blue on blue
 :        sta VERA_DATA0

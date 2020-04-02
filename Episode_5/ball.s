@@ -92,7 +92,7 @@ ball_update:
          jsr collision_bot
 
          ; Update sprite
-         lda #$11                ; Set increment to 1, and address to $F500A
+         lda #$11                ; Set increment to 1, and address to $1FC0A
          ldx #$FC
          ldy #$0A
          sta VERA_ADDRx_H
@@ -136,7 +136,7 @@ ball_init:
          jsr ball_reset
 
          ; Configure ball sprite (#1)
-         lda #$11                ; Set increment to 1, and address to $F5008
+         lda #$11                ; Set increment to 1, and address to $1FC08
          ldx #$FC
          ldy #$08
          sta VERA_ADDRx_H

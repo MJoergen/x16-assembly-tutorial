@@ -106,7 +106,7 @@ bot_update:
 :
 @skip_left:
 @update_sprite:
-         lda #$11                      ; Set increment to 1, and address to $F5012
+         lda #$11                      ; Set increment to 1, and address to $1FC12
          ldx #$FC
          ldy #$12
          sta VERA_ADDRx_H
@@ -139,7 +139,7 @@ bot_init:
          sta bot_pos_y+1
 
          ; Configure bot sprite (#2)
-         lda #$11                ; Set increment to 1, and address to $F5010
+         lda #$11                ; Set increment to 1, and address to $1FC10
          ldx #$FC
          ldy #$10
          sta VERA_ADDRx_H

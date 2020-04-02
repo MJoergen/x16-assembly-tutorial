@@ -51,7 +51,7 @@ Y-coordinates will be three bytes each.
 The function ball\_init is very similar to player\_init, except for a few modifications,
 including:
 
-* Different address in Video RAM ($F5008 instead of $F5000).
+* Different address in Video RAM ($1FC08 instead of $1FC00).
 * Different sprite location in Video RAM ($03E00 instead of $03C00).
 * Different sprite size (16x16 instead of 32x16).
 * Different colour.
