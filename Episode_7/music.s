@@ -177,7 +177,7 @@ music_chan0:                           ; MELODY
 .byt $00, $00, $00, $00                ; Second Decay Rate
 .byt $FF, $00, $00, $00                ; Release Rate
 
-music_chan1:                           ; BASE
+music_chan1:                           ; BASS
 .byt $D7, $00, $00, $00                ; Connect
 .byt $00, $00, $00, $00                ; DT1 and MUL
 .byt $02, $00, $00, $00                ; Total Level

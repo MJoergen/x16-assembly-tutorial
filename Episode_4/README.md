@@ -185,7 +185,7 @@ negative value of T corresponds to the ball moving away from the collision
 point.
 
 Just a note on collision with player. We don't have the coordinates of the
-collision point, but it turns out that only the above equations only rely on
+collision point, but it turns out that the above equations only rely on
 the *direction* towards the collision point, and so for DP we can use the
 vector from the center of the ball to the center of the player.  And collision
 then occurs when the length of this vector is less than the combined radii of
