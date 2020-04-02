@@ -115,6 +115,8 @@ ym2151_keycode:
 
 ; Write to a register in the chip.
 ym2151_write:
+:        bit YM2151_VAL                ; Wait while busy
+         bmi :-
          stx YM2151_ADDR
          sta YM2151_VAL
          rts
