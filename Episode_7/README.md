@@ -6,15 +6,16 @@ game in assembly language for the Commander X16.
 In this episode we will add music to the game.
 
 ## The YM2151 chip
-The sound on the X16 is controlled by the YM2151 chip. I will write a separate
-tutorial on now to make sounds on this chip, so suffice to say here that the
-chip supports up to eight simultaneous channels.
+The sound on the X16 is controlled by the YM2151 chip. I have written a
+separate [tutorial](https://github.com/MJoergen/x16-ym2151-tutorial) on now to
+make sounds on this chip, so suffice to say here that the chip supports up to
+eight simultaneous channels.
 
 ## Arranging music
 For those new to music the first thing to consider is how to arrange the music,
 i.e.  which sound channels should play which notes, and when.
 
-In this project we'll be using five sound channels: One for the melody, one for the base, and
+In this project we'll be using five sound channels: One for the melody, one for the bass, and
 three for the accompanying chords. The musical score will be arranged in lines,
 where each line corresponds to 1/16 of a bar. Each line will consist
 of five bytes, one for each channel. A channel may either:

@@ -22,13 +22,14 @@ In this first episode we'll only have one source file tennis.s. It starts with
 the line
 
 ```
-.include "tennis.inc"
+.include "vera.inc"
 ```
 
-This includes another file in this project, which will contain various constants used
-throughout the game. In this first episode that file contains the addresses for
+This includes another file in this project, which contains the addresses for
 the VERA registers.  It is wise to keep constants defined in a single place,
 rather than have your code littered with funny constants everywhere.
+The names of the register addresses in vera.inc are chosen to match the names
+in the [VERA documentation](https://github.com/commanderx16/x16-docs/blob/master/VERA%20Programmer's%20Reference.md).
 
 Then follows the well-known auto-launcher sequence, which basically consists of
 a small BASIC program with the single line
@@ -136,7 +137,7 @@ as expected, before you proceed to the next episode. It's possible to load the
 option "-prg tennis.prg", and you can even add the command line option "-run"
 so the program automatically runs. So the complete command line is:
 ```
-x16emu -rom rom.bin -prg tennis.prg -run
+x16emu -prg tennis.prg -run
 ```
 
 ## Congratulations!

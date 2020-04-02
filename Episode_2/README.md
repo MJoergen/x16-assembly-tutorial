@@ -34,7 +34,7 @@ key (in the emulator this is CTRL-C). This function returns equal-to-zero, if
 the user wants to stop the game.
 
 Calling kernal functions is easy, but you do have to define the address
-yourself. So in the file tennis.inc I've added references to the kernal
+yourself. So in the file kernal.inc I've added references to the kernal
 functions I'm using. I've chosen to prefix all the names with "kernal\_",
 because a good naming convention makes the program easier to read and maintain.
 
@@ -139,7 +139,7 @@ the width (8 pixels) of the wall.
 
 ## Sprites
 The bitmap data for the sprites are stored in Video RAM. There is no fixed
-memorymap for the Video RAM, but the default settings places the screen
+memory map for the Video RAM, but the default settings places the screen
 characters in the address range $00000 to $03BFF. I've therefore chosen to
 place the sprite data from address $03C00 and onwards.
 
@@ -161,11 +161,11 @@ called once every VSYNC, i.e. 60 times a second.
 I've chosen to maintain local copies (in player\_pos\_x and player\_pos\_y) of
 the position of the player sprite.  Technically, this is duplicating data,
 because the VERA contains the same information.  Duplication of data is
-discouraged, because it requires manual management to ensure that both copies
-are always in sync with each other. In other words, whenever the local copy is
-updated, the same data must be copied to the VERA.  However, the benifit is
-that accessing data from the VERA is cumbersome, particularly in the middle of
-some calculation.
+generally discouraged, because it requires manual management to ensure that
+both copies are always in sync with each other. In other words, whenever the
+local copy is updated, the same data must be copied to the VERA.  However, the
+benefit is that accessing data from the VERA is cumbersome, particularly in the
+middle of some calculation.
 
 One twist though is that I've chosen to translate the sprite coordinates so the
 local copies point to the "center" of the player, i.e. the center of the
@@ -176,7 +176,7 @@ of, so there is a cost.
 Looking now into the player\_init function, we see that the sprite coordinates
 must be aligned correctly. So the x,y value poked into the VERA is the top left
 corner of the sprite. To ensure the sprite is correctly placed, we must
-calculately the position of the top left corner of the sprite. This essentially
+calculate the position of the top left corner of the sprite. This essentially
 corresponds to subtracting PLAYER\_RADIUS from both the X- and Y-coordinates.
 
 Now the player\_update function is quite simple. We call yet another kernal
@@ -186,7 +186,7 @@ in the constant PLAYER\_SPEED to have the value 3. Since this occurs 60 times a
 second, the actual speed on the screen is 180 pixels/second. 
 
 ## Updates to the Makefile
-I've added some more features to the Makefile, so it is now possieble to type
+I've added some more features to the Makefile, so it is now possible to type
 "make run" to start the emulator and run the program. Furthermore, you can type
 "make clean", and all the generated files will be deleted.  I've furthermore
 added the option "--mapfile tennis.map" to the linker. This generates a text

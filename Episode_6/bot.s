@@ -3,6 +3,10 @@
 ; LICENSE: This program is public domain, and you may do anything and
 ; everything with it.
 
+.include "vera.inc"
+.include "kernal.inc"
+.include "tennis.inc"
+
 ; External API
 
 .export bot_init
@@ -21,7 +25,6 @@ bot_target_x : .res 2   ; 16.0 integer
 
 
 .code
-.include "tennis.inc"
 
 ;
 ; This function is called repeatedly. It handles keyboard input and
@@ -103,20 +106,20 @@ bot_update:
 :
 @skip_left:
 @update_sprite:
-         lda #$1F                      ; Set increment to 1, and address to $F5012
-         ldx #$50
+         lda #$11                      ; Set increment to 1, and address to $1FC12
+         ldx #$FC
          ldy #$12
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
 
          lda bot_pos_x                 ; Set sprite X-position
          sec
          sbc #BOT_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda bot_pos_x+1
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
          rts
 
 
@@ -136,38 +139,38 @@ bot_init:
          sta bot_pos_y+1
 
          ; Configure bot sprite (#2)
-         lda #$1F                ; Set increment to 1, and address to $F5010
-         ldx #$50
+         lda #$11                ; Set increment to 1, and address to $1FC10
+         ldx #$FC
          ldy #$10
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
 
          lda #$E0                ; Set sprite data address to $03C00
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$81
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda bot_pos_x           ; Set sprite X-position
          sec
          sbc #BOT_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda bot_pos_x+1
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda bot_pos_y           ; Set sprite Y-position
          sec
          sbc #BOT_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda bot_pos_y+1
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda #$0C                ; Set Z-depth to 3 (in front of layer 1)
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$67                ; Set sprite size to 32x16, and colour index to 7
-         sta VERADAT0
+         sta VERA_DATA0
 
          rts
 

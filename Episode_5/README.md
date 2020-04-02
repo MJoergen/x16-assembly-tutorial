@@ -35,7 +35,7 @@ bot\_update.
 
 ### bot\_init
 The function bot\_init is very similar to player\_init, except now we're using
-sprite index 2 at VERA address $F5010, and a new colour.
+sprite index 2 at VERA address $1FC10, and a new colour.
 
 ### bot\_update
 This is the "intelligence" of the bot, where it decides in which direction to

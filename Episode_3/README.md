@@ -4,7 +4,7 @@ This is the third episode of the tutorial explaining how to write a TENNIS
 game in assembly language for the Commander X16.
 
 In this and the next episode we will add the moving ball. I've decided to
-splite the ball programming in two episodes, because the collision handling is
+splite the ball programming into two episodes, because the collision handling is
 quite complicated.  So in this first part we will just focus on getting the
 ball moving on the screen.  Collision handling is done in the next episode.
 
@@ -41,7 +41,7 @@ way overkill.
 And we must not forget that since we are storing the values in little-endian
 format, the first byte is the fractional part, and the two following bytes are
 the integer part. We could choose a different byte-ordering, but little-endian
-is the most common byte ordering on 65C02.
+is the most common byte ordering on the 65C02.
 
 Since the velocities are fractional we need fractional coordinates as well.
 Again, we'll use one extra byte for the fractional part, so the X- and
@@ -51,7 +51,7 @@ Y-coordinates will be three bytes each.
 The function ball\_init is very similar to player\_init, except for a few modifications,
 including:
 
-* Different address in Video RAM ($F5008 instead of $F5000).
+* Different address in Video RAM ($1FC08 instead of $1FC00).
 * Different sprite location in Video RAM ($03E00 instead of $03C00).
 * Different sprite size (16x16 instead of 32x16).
 * Different colour.

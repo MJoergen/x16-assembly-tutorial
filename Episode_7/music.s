@@ -7,6 +7,9 @@
 ; The arrangement is created by Harley Volkova, see this video:
 ; https://www.youtube.com/watch?v=Tct2kV1gjZg
 
+.include "kernal.inc"
+.include "tennis.inc"
+
 ; External API
 
 .export music_init
@@ -16,8 +19,6 @@
 .import ym2151_keyon
 .import ym2151_keyoff
 .import ym2151_keycode
-
-.include "tennis.inc"                  ; kernal_clock_get_date_time
 
 ; This controls the tempo of the music. Number of jiffies per 1/16 of a bar.
 MUSIC_TIMER_STEP = 8
@@ -176,7 +177,7 @@ music_chan0:                           ; MELODY
 .byt $00, $00, $00, $00                ; Second Decay Rate
 .byt $FF, $00, $00, $00                ; Release Rate
 
-music_chan1:                           ; BASE
+music_chan1:                           ; BASS
 .byt $D7, $00, $00, $00                ; Connect
 .byt $00, $00, $00, $00                ; DT1 and MUL
 .byt $02, $00, $00, $00                ; Total Level

@@ -4,7 +4,7 @@ Commander X16.
 
 ## Prerequisites
 * You need to install the X16 emulator [release
-  0.36](https://github.com/commanderx16/x16-emulator/releases/tag/r36).  Just
+  0.37](https://github.com/commanderx16/x16-emulator/releases/tag/r37).  Just
   download the zip-file for your system, and unpack it. The zip-file contains
   the emulator 'x16emu' and the ROM image 'rom.bin'.
 * You also need to install the cc65 tool chain [version
