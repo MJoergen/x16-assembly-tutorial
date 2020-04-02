@@ -8,7 +8,7 @@
 .export sprite_init
 
 
-.include "tennis.inc"
+.include "vera.inc"
 
 
 ;
@@ -20,22 +20,28 @@ sprite_init:
          lda #$10                ; Set increment to 1, and address to $03C00
          ldx #$3C
          ldy #$00
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
          ldy #0
 :        lda sprite_data,y
-         sta VERADAT0
+         sta VERA_DATA0
          iny
          bne :-
 :        lda sprite_data+$0100,y
-         sta VERADAT0
+         sta VERA_DATA0
          iny
          bne :-
 :        lda sprite_data+$0200,y
-         sta VERADAT0
+         sta VERA_DATA0
          iny
          bne :-
+
+         ; Enable sprites
+         stz VERA_CTRL        ; Set DCSEL to 0
+         lda VERA_DC_VIDEO
+         ora #$40
+         sta VERA_DC_VIDEO
 
          rts
 

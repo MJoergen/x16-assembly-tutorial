@@ -186,7 +186,7 @@ in the constant PLAYER\_SPEED to have the value 3. Since this occurs 60 times a
 second, the actual speed on the screen is 180 pixels/second. 
 
 ## Updates to the Makefile
-I've added some more features to the Makefile, so it is now possieble to type
+I've added some more features to the Makefile, so it is now possible to type
 "make run" to start the emulator and run the program. Furthermore, you can type
 "make clean", and all the generated files will be deleted.  I've furthermore
 added the option "--mapfile tennis.map" to the linker. This generates a text

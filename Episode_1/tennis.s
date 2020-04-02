@@ -4,7 +4,7 @@
 ; LICENSE: This program is public domain, and you may do anything and
 ; everything with it.
 
-.include "tennis.inc"
+.include "vera.inc"
 
 ; The auto-lancher sequence starts here:
 
@@ -35,13 +35,13 @@ scene_init:
          lda #$20             ; Set increment to 2, and address to $00001 (top left corner)
          ldx #$00
          ldy #$01
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
          ldy #30              ; The number of colour cells to fill is 60*128, i.e. $3000
          ldx #0
          lda #$66             ; Blue on blue
-:        sta VERADAT0
+:        sta VERA_DATA0
          dex
          bne :-
          dey
@@ -51,12 +51,12 @@ scene_init:
          lda #$90             ; Set increment to 256, and address to $00001 (top left corner)
          ldx #$00
          ldy #$01
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
          ldy #60
          lda #$11             ; White on white
-:        sta VERADAT0
+:        sta VERA_DATA0
          dey
          bne :-
 
@@ -64,12 +64,12 @@ scene_init:
          lda #$90             ; Set increment to 256, and address to $0009F (top right corner)
          ldx #$00
          ldy #$9F
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
          ldy #60
          lda #$11             ; White on white
-:        sta VERADAT0
+:        sta VERA_DATA0
          dey
          bne :-
 
@@ -77,12 +77,12 @@ scene_init:
          lda #$20             ; Set increment to 2, and address to $00001 (top right corner)
          ldx #$00
          ldy #$01
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
          ldy #80
          lda #$11             ; White on white
-:        sta VERADAT0
+:        sta VERA_DATA0
          dey
          bne :-
 
@@ -90,12 +90,12 @@ scene_init:
          lda #$90             ; Set increment to 256, and address to $0324F (top of barrier)
          ldx #$32
          ldy #$4F
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
          ldy #10
          lda #$11             ; White on white
-:        sta VERADAT0
+:        sta VERA_DATA0
          dey
          bne :-
 

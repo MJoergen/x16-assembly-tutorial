@@ -3,6 +3,10 @@
 ; LICENSE: This program is public domain, and you may do anything and
 ; everything with it.
 
+.include "vera.inc"
+.include "kernal.inc"
+.include "tennis.inc"
+
 ; External API
 
 .export player_init
@@ -16,7 +20,6 @@ player_pos_y : .res 2
 
 
 .code
-.include "tennis.inc"
 
 ;
 ; This function is called repeatedly. It handles keyboard input and
@@ -77,20 +80,20 @@ player_update:
          sta player_pos_x+1
 
 @update_sprite:
-:        lda #$1F                ; Set increment to 1, and address to $F5002
-         ldx #$50
+:        lda #$11                ; Set increment to 1, and address to $F5002
+         ldx #$FC
          ldy #$02
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
 
          lda player_pos_x        ; Set sprite X-position
          sec
          sbc #PLAYER_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda player_pos_x+1
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
          rts
 
 ;
@@ -111,38 +114,38 @@ player_init:
          sta player_pos_y+1
 
          ; Configure player sprite (#0)
-         lda #$1F                ; Set increment to 1, and address to $F5000
-         ldx #$50
+         lda #$11                ; Set increment to 1, and address to $F5000
+         ldx #$FC
          ldy #$00
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
 
          lda #$E0                ; Set sprite data address to $03C00
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$81
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda player_pos_x        ; Set sprite X-position
          sec
          sbc #PLAYER_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda player_pos_x+1
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda player_pos_y        ; Set sprite Y-position
          sec
          sbc #PLAYER_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda player_pos_y+1
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda #$0C                ; Set Z-depth to 3 (in front of layer 1)
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$64                ; Set sprite size to 32x16, and colour index to 4
-         sta VERADAT0
+         sta VERA_DATA0
 
          rts
 

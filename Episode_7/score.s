@@ -3,6 +3,10 @@
 ; LICENSE: This program is public domain, and you may do anything and
 ; everything with it.
 
+.include "vera.inc"
+.include "kernal.inc"
+.include "tennis.inc"
+
 ; External API
 
 .export score_init
@@ -17,7 +21,6 @@ score_bot    : .res 1
 
 
 .code
-.include "tennis.inc"
 
 ;
 ; This function is called repeatedly. It handles keyboard input and
@@ -50,12 +53,12 @@ score_disable_sprite:
          clc
          adc #6
          tay
-         ldx #$50
-         lda #$1F
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
-         stz VERADAT0                  ; Disable sprite
+         ldx #$FC
+         lda #$11
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
+         stz VERA_DATA0                  ; Disable sprite
          rts
 
 
@@ -67,35 +70,35 @@ score_init:
          sta score_player
          sta score_bot
 
-         lda #$1F                      ; Set increment to 1, and address to $F5018
-         ldx #$50
+         lda #$11                      ; Set increment to 1, and address to $F5018
+         ldx #$FC
          ldy #$18
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
 
          ; Configure players score sprites (#3-#5)
          ldy #3
          ldx #88
 
 :        lda #$F8                      ; Set sprite data address to $03F00
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$81
-         sta VERADAT0
+         sta VERA_DATA0
 
          txa
-         sta VERADAT0
+         sta VERA_DATA0
          lda #0
-         sta VERADAT0
+         sta VERA_DATA0
          lda #88
-         sta VERADAT0
+         sta VERA_DATA0
          lda #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda #$0C                      ; Set Z-depth to 3 (in front of layer 1)
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$AE                      ; Set sprite size to 32x32, and colour index to E
-         sta VERADAT0
+         sta VERA_DATA0
 
          txa
          clc
@@ -109,23 +112,23 @@ score_init:
          ldx #128
 
 :        lda #$F8                      ; Set sprite data address to $03F00
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$81
-         sta VERADAT0
+         sta VERA_DATA0
 
          txa
-         sta VERADAT0
+         sta VERA_DATA0
          lda #1
-         sta VERADAT0
+         sta VERA_DATA0
          lda #88
-         sta VERADAT0
+         sta VERA_DATA0
          lda #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda #$0C                      ; Set Z-depth to 3 (in front of layer 1)
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$AE                      ; Set sprite size to 32x32, and colour index to E
-         sta VERADAT0
+         sta VERA_DATA0
 
          txa
          clc

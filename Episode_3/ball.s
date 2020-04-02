@@ -3,6 +3,10 @@
 ; LICENSE: This program is public domain, and you may do anything and
 ; everything with it.
 
+.include "vera.inc"
+.include "kernal.inc"
+.include "tennis.inc"
+
 ; External API
 
 .export ball_init
@@ -18,7 +22,6 @@ ball_vel_x : .res 3
 ball_vel_y : .res 3
 
 .code
-.include "tennis.inc"
 
 ;
 ; This function is called repeatedly. It moves the ball on the screen
@@ -62,28 +65,28 @@ ball_update:
          sta ball_pos_x+2
 
          ; Update sprite
-         lda #$1F                ; Set increment to 1, and address to $F500A
-         ldx #$50
+         lda #$11                ; Set increment to 1, and address to $F500A
+         ldx #$FC
          ldy #$0A
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
 
          lda ball_pos_x+1        ; Set sprite X-position
          sec
          sbc #BALL_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda ball_pos_x+2
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda ball_pos_y+1        ; Set sprite Y-position
          sec
          sbc #BALL_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda ball_pos_y+2
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          rts
 
@@ -118,38 +121,38 @@ ball_init:
          stz ball_vel_y+2
 
          ; Configure ball sprite (#1)
-         lda #$1F                ; Set increment to 1, and address to $F5008
-         ldx #$50
+         lda #$11                ; Set increment to 1, and address to $F5008
+         ldx #$FC
          ldy #$08
-         sta VERAHI
-         stx VERAMID
-         sty VERALO
+         sta VERA_ADDRx_H
+         stx VERA_ADDRx_M
+         sty VERA_ADDRx_L
 
          lda #$F0                ; Set sprite data address to $03E00
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$81
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda ball_pos_x+1        ; Set sprite X-position
          sec
          sbc #BALL_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda ball_pos_x+2
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda ball_pos_y+1        ; Set sprite Y-position
          sec
          sbc #BALL_RADIUS
-         sta VERADAT0
+         sta VERA_DATA0
          lda ball_pos_y+2
          sbc #0
-         sta VERADAT0
+         sta VERA_DATA0
 
          lda #$0C                ; Set Z-depth to 3 (in front of layer 1)
-         sta VERADAT0
+         sta VERA_DATA0
          lda #$53                ; Set sprite size to 16x16, and colour index to 3
-         sta VERADAT0
+         sta VERA_DATA0
 
          rts
 
