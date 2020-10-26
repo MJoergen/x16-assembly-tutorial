@@ -4,7 +4,7 @@ This is the third episode of the tutorial explaining how to write a TENNIS
 game in assembly language for the Commander X16.
 
 In this and the next episode we will add the moving ball. I've decided to
-splite the ball programming into two episodes, because the collision handling is
+split the ball programming into two episodes, because the collision handling is
 quite complicated.  So in this first part we will just focus on getting the
 ball moving on the screen.  Collision handling is done in the next episode.
 
